@@ -10,12 +10,6 @@ private:
     Node * new_one = new Node(key);
     Node * blank;
     Node * temp = head;
-    if(size >= max_size) {
-      // todo scan here for empty spot
-      delete new_one;
-      delete blank;
-      return;
-    }
     while(temp) {
       if(temp->is_blank() && new_one->size > temp->max_size) {
         temp = temp->right;
