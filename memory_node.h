@@ -29,5 +29,5 @@ public:
     size = actual_size(key);
   }
   unsigned int remaining() {return max_size - size;}
-  unsigned int actual_size(char * key) {return size * sizeof(char);}
+  unsigned int actual_size(char * key) {return strlen(key) * sizeof(char);}
 };
