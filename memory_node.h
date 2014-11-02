@@ -19,15 +19,30 @@ public:
   MemoryNode(Type node_key):max_size(1024), is_hole(false), left(NULL), right(NULL) {
     int key_len = node_key.length();
     key = new char[key_len];
-    strcpy(key, node_key.c_str());
-    size = actual_size(key);
+    set_key(node_key, key, size);
   }
   MemoryNode(Type node_key, unsigned int max_size, bool is_hole, MemoryNode * left, MemoryNode * right): max_size(max_size), is_hole(is_hole), left(left), right(right) {
     int key_len = node_key.length();
     key = new char[key_len];
+    set_key(node_key, key, size);
+  }
+  void set_key(Type node_key) {
+    // set key to something
+    delete key;
+    int key_len = node_key.length();
+    key = new char[key_len];
+    set_key(node_key, key, size);
+  }
+  bool is_remaining() {return size < max_size;}
+  unsigned int remaining() {return max_size - size;}
+  unsigned the_actual_size(char * key) {return actual_size(key);}
+  void cap() {max_size = size;}
+  bool is_blank() {return size == 0;}
+private:
+  void set_key(Type node_key, char * key, unsigned int & size) {
+    // set key to something
     strcpy(key, node_key.c_str());
     size = actual_size(key);
   }
-  unsigned int remaining() {return max_size - size;}
   unsigned int actual_size(char * key) {return strlen(key) * sizeof(char);}
 };
