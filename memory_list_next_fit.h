@@ -12,10 +12,7 @@ private:
     Node * blank;
     Node * temp = position;
     while(temp) {
-      if(temp->is_blank() && new_one->size > temp->max_size) {
-        temp = temp->right;
-        continue;
-      }
+      // find empty hole
       if(temp->is_blank() && new_one->size <= temp->max_size) {
         blank = new Node("", temp->max_size - new_one->size);
         replace_node(temp, new_one, size, max_size, head, tail);
@@ -24,6 +21,7 @@ private:
         delete temp;
         return;
       }
+      temp = temp->right;
     }
     blank = new Node("", new_one->remaining());
     insert_right_node(new_one, size, max_size, head, tail);
