@@ -8,24 +8,29 @@ private:
   void insert(char * key, unsigned int & size, unsigned int max_size, Node * & head, Node * & tail) {
     // insert key to list
     Node * new_one = new Node(key);
-    Node * blank = new Node("", new_one->remaining());
-    Node * temp;
+    Node * blank;
+    Node * temp = head;
     if(size >= max_size) {
       // todo scan here for empty spot
       delete new_one;
       delete blank;
       return;
     }
-    if(!size) {
-      insert_right_node(new_one, size, max_size, head, tail);
-      insert_right_node(blank, size, max_size, head, tail);
-      return;
-    }
-    temp = head;
     while(temp) {
-      if(temp->is_blank() && temp->max_size <= new_one->size) {
-        
+      if(temp->is_blank() && new_one->size > temp->max_size) {
+        temp = temp->right;
+        continue;
+      }
+      if(temp->is_blank() && new_one->size <= temp->max_size) {
+        blank = new Node("", temp->max_size - new_one->size);
+        replace_node(temp, new_one, size, max_size, head, tail);
+        insert_after_node(new_one, blank, size, max_size, head, tail);
+        delete temp;
+        return;
       }
     }
+    blank = new Node("", new_one->remaining());
+    insert_right_node(new_one, size, max_size, head, tail);
+    insert_right_node(blank, size, max_size, head, tail);
   }
 };

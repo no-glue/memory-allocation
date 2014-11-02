@@ -38,6 +38,7 @@ public:
   unsigned the_actual_size(char * key) {return actual_size(key);}
   void cap() {max_size = size;}
   bool is_blank() {return size == 0;}
+  bool is_full() {return max_size <= 0;}
 private:
   void set_key(Type node_key, char * key, unsigned int & size) {
     // set key to something
