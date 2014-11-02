@@ -10,7 +10,7 @@ private:
     // insert key to list
     Node * new_one = new Node(key);
     Node * blank;
-    Node * temp = head;
+    Node * temp = position;
     while(temp) {
       if(temp->is_blank() && new_one->size > temp->max_size) {
         temp = temp->right;
