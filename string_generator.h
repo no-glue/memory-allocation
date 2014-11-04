@@ -12,7 +12,11 @@ private:
     // fixed size string
     wrapper->clear(destination, length);
     random->seed();
-    for(int i = 0; i < length; i++) destination[i] = random->number(128);
+    for(int i = 0; i < length; i++) {
+      destination[i] = random->number(128);
+      if(destination[i] < 97) destination[i] = 97;
+      if(destination[i] > 122) destination[i] = 122;
+    }
     destination[length] = '\0';
   }
   void generate_variable(char * destination, unsigned int length, Wrapper * & wrapper, Random * & random) {
@@ -21,7 +25,11 @@ private:
     random->seed();
     length = random->number(length);
     if(!length) length++;
-    for(int i = 0; i < length; i++) destination[i] = random->number(128);
+    for(int i = 0; i < length; i++) {
+      destination[i] = random->number(128);
+      if(destination[i] < 97) destination[i] = 97;
+      if(destination[i] > 122) destination[i] = 122;
+    }
     destination[length] = '\0';
   }
 };
