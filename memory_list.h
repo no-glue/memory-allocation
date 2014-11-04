@@ -6,7 +6,7 @@ public:
   MemoryList(unsigned int max_size):max_size(max_size) {DoubleList<Node, Type>();}
   void insert_after_node(Node * this_one, Node * new_one) {
     // insert after this one
-    insert_after_node(this_one, new_one, this->size, max_size, this->head, this->tail);
+    insert_after_node(this_one, new_one, this->size, max_size, this->tail);
   }
   void insert_right_node(Node * new_one) {
     // insert node to the right
@@ -14,12 +14,12 @@ public:
   }
   void replace_node(Node * this_one, Node * new_one) {
     // replace this one with new one
-    replace_node(this_one, new_one, this->size, max_size, this->head, this->tail);
+    replace_node(this_one, new_one, this->head, this->tail);
   }
 protected:
   unsigned int max_size;
   // maximum size of list
-  void insert_after_node(Node * this_one, Node * new_one, unsigned int & size, unsigned int max_size, Node * & head, Node * & tail) {
+  void insert_after_node(Node * this_one, Node * new_one, unsigned int & size, unsigned int max_size, Node * & tail) {
     // insert after this one
     if(size >= max_size) return;
     if(new_one->is_full()) return;
@@ -45,7 +45,7 @@ protected:
     tail = new_one;
     size++;    
   }
-  void replace_node(Node * this_one, Node * new_one, unsigned int & size, unsigned int max_size, Node * & head, Node * & tail) {
+  void replace_node(Node * this_one, Node * new_one, Node * & head, Node * & tail) {
     // replace this one with new one
     if(this_one == tail) {
       new_one->left = tail->left;

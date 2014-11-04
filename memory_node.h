@@ -21,6 +21,11 @@ public:
     key = new char[key_len];
     set_key(node_key, key, size);
   }
+  MemoryNode(Type node_key, unsigned int max_size):max_size(max_size), is_hole(false), left(NULL), right(NULL) {
+    int key_len = node_key.length();
+    key = new char[key_len];
+    set_key(node_key, key, size);
+  }
   MemoryNode(Type node_key, unsigned int max_size, bool is_hole, MemoryNode * left, MemoryNode * right): max_size(max_size), is_hole(is_hole), left(left), right(right) {
     int key_len = node_key.length();
     key = new char[key_len];

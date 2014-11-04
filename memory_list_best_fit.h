@@ -8,26 +8,29 @@ public:
 private:
   void insert(Type key, unsigned int & size, unsigned int max_size, Node * & head, Node * & tail) {
     // insert key to list
-    Node * new_one = new Node(key), * blank, * temp = head, * smallest = temp;
+    Node * new_one = new Node(key), * blank, * temp = head;
+    Node * smallest = NULL;
+
     while(temp) {
       // look for smallest
       if(temp->is_blank() && new_one->size <= temp->max_size) {
         // can fit
-        if(smallest->max_size > temp->max_size) smallest = temp;
+        if(smallest && smallest->max_size > temp->max_size) smallest = temp;
+        else if(!smallest) smallest = temp;
       }
       temp = temp->right;
     }
     if(smallest) {
       // replace smallest
       blank = new Node("", smallest->max_size - new_one->size);
-      replace_node(smallest, new_one, size, max_size, head, tail);
-      insert_after_node(new_one, blank, size, max_size, head, tail);
+      this->replace_node(smallest, new_one, head, tail);
+      this->insert_after_node(new_one, blank, size, max_size, tail);
       delete smallest;
       return;
     }
     blank = new Node("", new_one->remaining());
-    insert_right_node(new_one, size, max_size, head, tail);
-    insert_right_node(blank, size, max_size, head, tail);
+    this->insert_right_node(new_one, size, max_size, head, tail);
+    this->insert_right_node(blank, size, max_size, head, tail);
     // add to list tail
   }
 };
