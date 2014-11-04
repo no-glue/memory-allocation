@@ -28,14 +28,13 @@ int main() {
     MemoryNode<string>,
     string
   >();
-  char key_array[STRING_LENGTH];
-  string key;
+  char key[STRING_LENGTH];
   int i = 0;
   cout<<"inserting samples"<<endl;
   for(; i < SAMPLES; i++) {
     if(!(i % 10)) cout<<"inserted samples "<<i<<endl;
-    generator->generate(key_array, STRING_LENGTH);
-    key = string(key_array);
+    generator->generate(key, STRING_LENGTH);
+    cout<<"key "<<key<<endl;
     list->insert(key);
   }
   cout<<"done"<<endl;
