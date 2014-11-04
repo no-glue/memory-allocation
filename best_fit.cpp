@@ -32,9 +32,17 @@ int main() {
   int i = 0;
   cout<<"inserting samples"<<endl;
   for(; i < SAMPLES; i++) {
-    if(!(i % 10)) cout<<"inserted samples "<<i<<endl;
+    if(!(i % 100)) cout<<"inserted samples "<<i<<endl;
     generator->generate(key, STRING_LENGTH);
-    cout<<"key "<<key<<endl;
+    list->insert(key);
+  }
+  cout<<"done"<<endl;
+  cout<<"size "<<list->get_size()<<endl;
+  cout<<"blanks "<<list->get_blanks()<<endl;
+  cout<<"inserting samples"<<endl;
+  for(i = 0; i < SAMPLES; i++) {
+    if(!(i % 100)) cout<<"inserted samples "<<i<<endl;
+    generator->generate_variable(key, STRING_LENGTH);
     list->insert(key);
   }
   cout<<"done"<<endl;
