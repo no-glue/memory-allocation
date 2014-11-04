@@ -13,9 +13,8 @@ private:
     wrapper->clear(destination, length);
     random->seed();
     for(int i = 0; i < length; i++) {
-      destination[i] = random->number(128);
+      destination[i] = random->number(123);
       if(destination[i] < 97) destination[i] = 97;
-      if(destination[i] > 122) destination[i] = 122;
     }
     destination[length] = '\0';
   }
@@ -26,9 +25,8 @@ private:
     length = random->number(length);
     if(!length) length++;
     for(int i = 0; i < length; i++) {
-      destination[i] = random->number(128);
+      destination[i] = random->number(123);
       if(destination[i] < 97) destination[i] = 97;
-      if(destination[i] > 122) destination[i] = 122;
     }
     destination[length] = '\0';
   }
