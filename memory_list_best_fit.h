@@ -1,14 +1,14 @@
 #include "memory_list.h"
-template<class Node, typename Type>class MemoryListBestFit:public <Node, Type>MemoryList {
+template<class Node, typename Type>class MemoryListBestFit:public MemoryList<Node, Type> {
 // add to smallest hole
 public:
-  MemoryListBestFit:MemoryList() {}
-  MemoryListBestFit(unsigned int max_size, unsigned int size):MemoryList(max_size, size), position(NULL) {}
-  void insert(char * key) {insert(key, size, max_size, head, tail);}
+  MemoryListBestFit() {MemoryList<Node, Type>();}
+  MemoryListBestFit(unsigned int max_size, unsigned int size):MemoryList<Node, Type>(max_size, size) {}
+  void insert(char * key) {insert(key, this->size, this->max_size, this->head, this->tail);}
 private:
   void insert(char * key, unsigned int & size, unsigned int max_size, Node * & head, Node * & tail) {
     // insert key to list
-    Node * new_one = new Node(key), smallest = NULL, * temp = head;
+    Node * new_one = new Node(key), * blank, smallest = NULL, * temp = head;
     while(temp) {
       // look for smallest
       if(temp->is_blank() && new_one->size <= temp->max_size) {

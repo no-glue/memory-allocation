@@ -1,20 +1,20 @@
 #include "double_list.h"
 // SPIROS DIONIS 
-template<class Node, typename Type>class MemoryList:public <Node, Type>DoubleList {
+template<class Node, typename Type>class MemoryList:public DoubleList<Node, Type> {
 public:
-  MemoryList():DoubleList(), max_size(1024) {}
-  MemoryList(unsigned int max_size, unsigned int size):DoubleList(), max_size(max_size), size(size) {}
+  MemoryList():max_size(1024) {DoubleList<Node, Type>();}
+  MemoryList(unsigned int max_size):max_size(max_size) {DoubleList<Node, Type>();}
   void insert_after_node(Node * this_one, Node * new_one) {
     // insert after this one
-    insert_after_node(this_one, new_one, size, max_size, head, tail);
+    insert_after_node(this_one, new_one, this->size, max_size, this->head, this->tail);
   }
   void insert_right_node(Node * new_one) {
     // insert node to the right
-    insert_right_node(new_one, size, max_size, head, tail);
+    insert_right_node(new_one, this->size, max_size, this->head, this->tail);
   }
   void replace_node(Node * this_one, Node * new_one) {
     // replace this one with new one
-    replace_node(this_one, new_one, size, max_size, head, tail);
+    replace_node(this_one, new_one, this->size, max_size, this->head, this->tail);
   }
 private:
   unsigned int max_size;
