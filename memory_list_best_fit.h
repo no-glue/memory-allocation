@@ -23,7 +23,7 @@ private:
     if(smallest) {
       // replace smallest
       blank = new Node("", smallest->max_size - new_one->size);
-      this->replace_node(smallest, new_one, head, tail);
+      this->replace_node(smallest, new_one, blanks, head, tail);
       this->insert_after_node(new_one, blank, size, max_size, blanks, tail);
       delete smallest;
       return;

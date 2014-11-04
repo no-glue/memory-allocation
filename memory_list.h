@@ -14,7 +14,7 @@ public:
   }
   void replace_node(Node * this_one, Node * new_one) {
     // replace this one with new one
-    replace_node(this_one, new_one, this->head, this->tail);
+    replace_node(this_one, new_one, blanks, this->head, this->tail);
   }
   unsigned int get_blanks() {return blanks;}
 protected:
@@ -50,8 +50,9 @@ protected:
     tail = new_one;
     size++;    
   }
-  void replace_node(Node * this_one, Node * new_one, Node * & head, Node * & tail) {
+  void replace_node(Node * this_one, Node * new_one, unsigned int & blanks, Node * & head, Node * & tail) {
     // replace this one with new one
+    if(this_one->is_blank()) blanks--;
     if(this_one == tail) {
       new_one->left = tail->left;
       tail->left->right = new_one;
