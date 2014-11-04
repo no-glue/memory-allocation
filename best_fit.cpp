@@ -39,6 +39,8 @@ int main() {
     list->insert(key);
   }
   cout<<"done"<<endl;
+  cout<<"size "<<list->get_size()<<endl;
+  cout<<"blanks "<<list->get_blanks()<<endl;
   delete time;
   delete random;
   delete str;

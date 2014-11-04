@@ -4,9 +4,9 @@ template<class Node, typename Type>class MemoryListBestFit:public MemoryList<Nod
 public:
   MemoryListBestFit() {MemoryList<Node, Type>();}
   MemoryListBestFit(unsigned int max_size, unsigned int size):MemoryList<Node, Type>(max_size, size) {}
-  void insert(Type key) {insert(key, this->size, this->max_size, this->head, this->tail);}
+  void insert(Type key) {insert(key, this->size, this->max_size, this->blanks, this->head, this->tail);}
 private:
-  void insert(Type key, unsigned int & size, unsigned int max_size, Node * & head, Node * & tail) {
+  void insert(Type key, unsigned int & size, unsigned int max_size, unsigned int & blanks, Node * & head, Node * & tail) {
     // insert key to list
     Node * new_one = new Node(key), * blank, * temp = head;
     Node * smallest = NULL;
@@ -24,13 +24,13 @@ private:
       // replace smallest
       blank = new Node("", smallest->max_size - new_one->size);
       this->replace_node(smallest, new_one, head, tail);
-      this->insert_after_node(new_one, blank, size, max_size, tail);
+      this->insert_after_node(new_one, blank, size, max_size, blanks, tail);
       delete smallest;
       return;
     }
     blank = new Node("", new_one->remaining());
-    this->insert_right_node(new_one, size, max_size, head, tail);
-    this->insert_right_node(blank, size, max_size, head, tail);
+    this->insert_right_node(new_one, size, max_size, blanks, head, tail);
+    this->insert_right_node(blank, size, max_size, blanks, head, tail);
     // add to list tail
   }
 };
