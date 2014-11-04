@@ -16,7 +16,7 @@ public:
     // replace this one with new one
     replace_node(this_one, new_one, this->size, max_size, this->head, this->tail);
   }
-private:
+protected:
   unsigned int max_size;
   // maximum size of list
   void insert_after_node(Node * this_one, Node * new_one, unsigned int & size, unsigned int max_size, Node * & head, Node * & tail) {

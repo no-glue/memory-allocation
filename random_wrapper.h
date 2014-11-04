@@ -7,5 +7,5 @@ public:
   unsigned int number(unsigned int max) {return rand() * max;}
 private:
   Time * time;
-  void seed(Time * & time) {rand(time->time());}
+  void seed(Time * & time) {srand(time->the_time());}
 };
