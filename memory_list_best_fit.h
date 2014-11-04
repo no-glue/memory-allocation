@@ -15,17 +15,15 @@ private:
       // look for smallest
       if(temp->is_blank() && new_one->size <= temp->max_size) {
         // can fit
-        if(smallest && smallest->max_size > temp->max_size) smallest = temp;
-        else if(!smallest) smallest = temp;
+        if((smallest && smallest->max_size > temp->max_size) || !smallest) smallest = temp;
       }
       temp = temp->right;
     }
     if(smallest) {
       // replace smallest
       blank = new Node("", smallest->max_size - new_one->size);
-      this->replace_node(smallest, new_one, blanks, head, tail);
-      this->insert_after_node(new_one, blank, size, max_size, blanks, tail);
-      delete smallest;
+      this->replace_node(smallest, new_one, blanks);
+      this->insert_after_node(smallest, blank, size, max_size, blanks, tail);
       return;
     }
     blank = new Node("", new_one->remaining());

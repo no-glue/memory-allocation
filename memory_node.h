@@ -8,7 +8,7 @@ public:
   // strlen(key) * sizeof(char)
   unsigned int max_size;
   // max size in bytes
-  // default 1024 bytes 1kb
+  // default 128 bytes
   bool is_hole;
   // true if is hole, false if not (it's partition)
   MemoryNode * left;
@@ -16,7 +16,7 @@ public:
   MemoryNode * right;
   // right node
   MemoryNode():left(NULL), right(NULL) {}
-  MemoryNode(Type node_key):max_size(1024), is_hole(false), left(NULL), right(NULL) {
+  MemoryNode(Type node_key):max_size(128), is_hole(false), left(NULL), right(NULL) {
     int key_len = node_key.length();
     key = new char[key_len];
     set_key(node_key, key, size);
@@ -40,15 +40,12 @@ public:
   }
   bool is_remaining() {return size < max_size;}
   unsigned int remaining() {return max_size - size;}
-  unsigned the_actual_size(char * key) {return actual_size(key);}
   void cap() {max_size = size;}
   bool is_blank() {return size == 0;}
-  bool is_full() {return max_size <= 0;}
 private:
   void set_key(Type node_key, char * key, unsigned int & size) {
     // set key to something
     strcpy(key, node_key.c_str());
-    size = actual_size(key);
+    size = strlen(key);
   }
-  unsigned int actual_size(char * key) {return strlen(key) * sizeof(char);}
 };

@@ -14,7 +14,7 @@ public:
   }
   void replace_node(Node * this_one, Node * new_one) {
     // replace this one with new one
-    replace_node(this_one, new_one, blanks, this->head, this->tail);
+    replace_node(this_one, new_one, blanks);
   }
   unsigned int get_blanks() {return blanks;}
 protected:
@@ -25,7 +25,7 @@ protected:
   void insert_after_node(Node * this_one, Node * new_one, unsigned int & size, unsigned int max_size, unsigned int & blanks, Node * & tail) {
     // insert after this one
     if(size >= max_size) return;
-    if(new_one->is_full()) return;
+    if(new_one->is_blank() && !new_one->is_remaining()) return;
     if(new_one->is_blank()) blanks++;
     if(this_one == tail) {
       tail->right = new_one;
@@ -42,7 +42,7 @@ protected:
   void insert_right_node(Node * new_one, unsigned int & size, unsigned int max_size, unsigned int & blanks, Node * & head, Node * & tail) {
     // insert node to the right
     if(size >= max_size) return;
-    if(new_one->is_full()) return;
+    if(new_one->is_blank() && !new_one->is_remaining()) return;
     if(new_one->is_blank()) blanks++;
     if(!size) {head = tail = new_one; size++; return;}
     tail->right = new_one;
@@ -50,23 +50,10 @@ protected:
     tail = new_one;
     size++;    
   }
-  void replace_node(Node * this_one, Node * new_one, unsigned int & blanks, Node * & head, Node * & tail) {
+  void replace_node(Node * this_one, Node * new_one, unsigned int & blanks) {
     // replace this one with new one
     if(this_one->is_blank()) blanks--;
-    if(this_one == tail) {
-      new_one->left = tail->left;
-      tail->left->right = new_one;
-      tail = new_one;
-      return;
-    }
-    if(this_one == head) {
-      new_one->right = head->right;
-      head->right->left = new_one;
-      head = new_one;
-      return;
-    }
-    this_one->left->right = this_one->right->left = new_one;
-    new_one->left = this_one->left;
-    new_one->right = this_one->right;
+    this_one->set_key(new_one->key);
+    this_one->max_size = new_one->max_size;
   }
 };

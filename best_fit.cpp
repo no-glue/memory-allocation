@@ -39,6 +39,7 @@ int main() {
   cout<<"done"<<endl;
   cout<<"size "<<list->get_size()<<endl;
   cout<<"blanks "<<list->get_blanks()<<endl;
+  list->make_empty();
   cout<<"inserting samples"<<endl;
   for(i = 0; i < SAMPLES; i++) {
     if(!(i % 100)) cout<<"inserted samples "<<i<<endl;
@@ -48,6 +49,7 @@ int main() {
   cout<<"done"<<endl;
   cout<<"size "<<list->get_size()<<endl;
   cout<<"blanks "<<list->get_blanks()<<endl;
+  list->make_empty();
   delete time;
   delete random;
   delete str;
