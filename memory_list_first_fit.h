@@ -1,28 +1,27 @@
 #include "memory_list.h"
-template<class Node, typename Type>class MemoryListFirstFit:public <Node, Type>MemoryList {
+template<class Node, typename Type>class MemoryListFirstFit:public MemoryList<Node, Type> {
 public:
-  MemoryListFirstFit():MemoryList() {}
-  MemoryListFirstFit(unsigned int max_size, unsigned int size):MemoryList(max_size, size) {}
-  void insert(char * key) {insert(key, size, max_size, head, tail);}
+  MemoryListFirstFit() {MemoryList<Node, Type>();}
+  MemoryListFirstFit(unsigned int max_size, unsigned int size):MemoryList<Node, Type>(max_size, size) {}
+  void insert(Type key) {insert(key, this->size, this->max_size, this->blanks, this->head, this->tail);}
 private:
-  void insert(char * key, unsigned int & size, unsigned int max_size, Node * & head, Node * & tail) {
+  void insert(Type key, unsigned int & size, unsigned int max_size, unsigned int & blanks, Node * & head, Node * & tail) {
     // insert key to list
-    Node * new_one = new Node(key);
-    Node * blank;
-    Node * temp = head;
+    Node * new_one = new Node(key), * blank, * temp = head;
+
     while(temp) {
       // find empty hole
       if(temp->is_blank() && new_one->size <= temp->max_size) {
+        // can fit
         blank = new Node("", temp->max_size - new_one->size);
-        replace_node(temp, new_one, size, max_size, head, tail);
-        insert_after_node(new_one, blank, size, max_size, head, tail);
-        delete temp;
+        this->replace_node(temp, new_one, blanks);
+        this->insert_after_node(temp, blank, size, max_size, blanks, tail);
         return;
       }
       temp = temp->right;
     }
     blank = new Node("", new_one->remaining());
-    insert_right_node(new_one, size, max_size, head, tail);
-    insert_right_node(blank, size, max_size, head, tail);
+    this->insert_right_node(new_one, size, max_size, blanks, head, tail);
+    this->insert_right_node(blank, size, max_size, blanks, head, tail);
   }
 };
