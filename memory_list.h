@@ -1,5 +1,4 @@
 #include "double_list.h"
-// SPIROS DIONIS 
 template<class Node, typename Type>class MemoryList:public DoubleList<Node, Type> {
 public:
   MemoryList():max_size(1024), blanks(0) {DoubleList<Node, Type>();}
